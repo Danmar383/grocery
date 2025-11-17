@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventurer's Inventory</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #9370DB; /* Medium purple */
+            padding: 20px;
+            background-image: linear-gradient(to bottom, #9370DB, #4B0082); /* Purple gradient */
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 3px solid #8B4513;
+            position: relative;
+        }
+
+        h1 {
+            color: #8B4513;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            font-family: 'Georgia', serif;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #654321;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            background-color: #F5F5DC;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #D2B48C;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #8B4513;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-bottom: 25px;
+        }
+
+        li {
+            font-size: 1.3rem;
+            padding: 12px 0;
+            border-bottom: 1px dashed #D2B48C;
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="checkbox"] {
+            transform: scale(1.3);
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .item-rare {
+            color: #4169E1;
+            font-weight: bold;
+        }
+
+        .item-epic {
+            color: #9370DB;
+            font-weight: bold;
+        }
+
+        .item-legendary {
+            color: #FF8C00;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #654321;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #clearBtn {
+            background-color: #B22222;
+        }
+
+        #clearBtn:hover {
+            background-color: #8B0000;
+        }
+
+        .inventory-count {
+            text-align: center;
+            margin-top: 15px;
+            font-style: italic;
+            color: #654321;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Adventurer's Inventory</h1>
+        <p class="subtitle">Items collected on your journey</p>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value">12</div>
+                <div>Quests Completed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">7</div>
+                <div>Monsters Defeated</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">3</div>
+                <div>Dungeons Explored</div>
+            </div>
+        </div>
+        
+        <p>Check off items you've used or sold:</p>
+        
+        <ul>
+            <li>
+                <input type="checkbox" id="item1">
+                <label for="item1">🍎 Healing Apple</label>
+            </li>
+            <li>
+                <input type="checkbox" id="item2">
+                <label for="item2">🍌 Banana of Energy</label>
+            </li>
+            <li>
+                <input type="checkbox" id="item3">
+                <label for="item3">🍊 Orange of Wisdom</label>
+            </li>
+            <li>
+                <input type="checkbox" id="item4">
+                <label for="item4">🥔 Potato of Sustenance</label>
+            </li>
+            <li>
+                <input type="checkbox" id="item5">
+                <label for="item5">🥛 Milk of Health</label>
+            </li>
+            <li>
+                <input type="checkbox" id="item6">
+                <label for="item6" class="item-rare">🍞 Bread of Life</label>
+            </li>
+            <li>
+                <input type="checkbox" id="item7">
+                <label for="item7" class="item-epic">🥚 Dragon Eggs</label>
+            </li>
+            <li>
+                <input type="checkbox" id="item8">
+                <label for="item8" class="item-legendary">🧀 Cheese of the Gods</label>
+            </li>
+        </ul>
+        
+        <div class="buttons">
+            <button id="clearBtn">Clear All</button>
+            <button id="saveBtn">Save Inventory</button>
+        </div>
+        
+        <div class="inventory-count">8 items in inventory</div>
+    </div>
+
+    <script>
+        document.querySelectorAll('input[type="checkbox"]').forEach(box => {
+            box.addEventListener('change', function() {
+                const label = document.querySelector(`label[for="${this.id}"]`);
+                if (this.checked) {
+                    label.classList.add('completed');
+                } else {
+                    label.classList.remove('completed');
+                }
+                updateInventoryCount();
+            });
+        });
+
+        document.getElementById('clearBtn').addEventListener('click', function() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(box => {
+                box.checked = false;
+                const label = document.querySelector(`label[for="${box.id}"]`);
+                label.classList.remove('completed');
+            });
+            updateInventoryCount();
+        });
+
+        document.getElementById('saveBtn').addEventListener('click', function() {
+            alert('Inventory saved! Your items are secure in the guild storage.');
+        });
+
+        function updateInventoryCount() {
+            const totalItems = document.querySelectorAll('input[type="checkbox"]').length;
+            const checkedItems = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            const remainingItems = totalItems - checkedItems;
+            document.querySelector('.inventory-count').textContent = 
+                `${remainingItems} of ${totalItems} items remaining`;
+        }
+    </script>
+</body>
+</html>
